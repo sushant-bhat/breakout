@@ -11,5 +11,5 @@ PAUSE_SPACE_TEXT = 'Press space to resume'
 GAME_OVER_SPACE_TEXT = 'Press space to go to start'
 SCORE_TEXT = 'SCORE:'
 
-BALL_SPEED = 350
+BALL_SPEED = 150
 PADDLE_SPEED = 500

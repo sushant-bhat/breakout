@@ -23,11 +23,17 @@ PlayState.update = function(dt)
   if PlayState.lives == 0 then
     currentState = 'game_over'
     PlayState.lives = 3
+    brickMatrix:reset()
   end
   ball.update(dt)
   paddle.update(dt)
   if checkCollisions() then
     ball.dy = -ball.dy
+    if paddle.dx < 0 then
+      ball.dx = ball.dx-100
+    elseif paddle.dx > 0 then
+      ball.dx = ball.dx+100
+    end
     ball.y = paddle.y-ball.h
   end
 end

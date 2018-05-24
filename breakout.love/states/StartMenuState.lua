@@ -11,7 +11,10 @@ StartMenuState.update = function(dt)
     StartMenuState.highlighted = (StartMenuState.highlighted-1)%2
   end
   if love.keyboard.keyPressed['return'] then
-    currentState = 'play'
+    local index = StartMenuState.highlighted*2 + 2
+    if StartMenuState.menu[index] == START_TEXT then
+      currentState = 'play'
+    end
   end
   StartMenuState.menu = {{1,1,1,1},START_TEXT,{1,1,1,1},"\n"..HIGH_SCORE_TEXT}
 end

@@ -7,6 +7,14 @@ BrickMatrix.new = function()
   brickMatrix.cols = (SCREEN_W-50)/40
   brickMatrix.x = 25
   brickMatrix.y = 25
+  brickMatrix.reset = function()
+    for i = 1,brickMatrix.rows,1 do
+      for j = 1,brickMatrix.cols,1 do
+        brickMatrix[i][j].hit = false
+      end
+    end
+  end
+  
   for i = 1,brickMatrix.rows,1 do
     brickMatrix[i] = {}
     for j = 1,brickMatrix.cols,1 do
@@ -25,31 +33,51 @@ BrickMatrix.new = function()
       for j = 1,brickMatrix.cols,1 do
         if not brickMatrix[i][j].hit then
 
-          if ball.x >= brickMatrix[i][j].bx and ball.x <= brickMatrix[i][j].bx+brickMatrix[i][j].brick.w and ball.y <= brickMatrix[i][j].by + brickMatrix[i][j].brick.h+5 and ball.y >= brickMatrix[i][j].by + brickMatrix[i][j].brick.h and ball.dy < 0 then
+          if ((ball.x >= brickMatrix[i][j].bx and ball.x <= brickMatrix[i][j].bx+brickMatrix[i][j].brick.w) 
+              or (ball.x+ball.w >= brickMatrix[i][j].bx and ball.x+ball.w <= brickMatrix[i][j].bx+brickMatrix[i][j].brick.w)) 
+              and ball.y <= brickMatrix[i][j].by + brickMatrix[i][j].brick.h+5 
+              and ball.y >= brickMatrix[i][j].by + brickMatrix[i][j].brick.h 
+              and ball.dy < 0 then
             brickMatrix[i][j].hit = true
             --print('Got hit')
             ball.dy = -ball.dy
+            ball.y = brickMatrix[i][j].by + brickMatrix[i][j].brick.h
             PlayState.score = PlayState.score + 1
           end
           
-          if ball.x >= brickMatrix[i][j].bx and ball.x <= brickMatrix[i][j].bx+brickMatrix[i][j].brick.w and ball.y >= brickMatrix[i][j].by-5 and ball.y <= brickMatrix[i][j].by and ball.dy > 0 then
+          if ((ball.x >= brickMatrix[i][j].bx and ball.x <= brickMatrix[i][j].bx+brickMatrix[i][j].brick.w) 
+              or (ball.x+ball.w >= brickMatrix[i][j].bx and ball.x+ball.w <= brickMatrix[i][j].bx+brickMatrix[i][j].brick.w))
+              and ball.y >= brickMatrix[i][j].by-5 
+              and ball.y <= brickMatrix[i][j].by 
+              and ball.dy > 0 then
             brickMatrix[i][j].hit = true
             --print('Got hit again')
             ball.dy = -ball.dy
+            ball.y = brickMatrix[i][j].by-5
             PlayState.score = PlayState.score + 1
           end
           
-          if ball.y >= brickMatrix[i][j].by and ball.y <= brickMatrix[i][j].by+brickMatrix[i][j].brick.h and ball.x <= brickMatrix[i][j].bx + brickMatrix[i][j].brick.w+5 and ball.x >= brickMatrix[i][j].bx + brickMatrix[i][j].brick.w and ball.dx < 0 then
+          if ((ball.y >= brickMatrix[i][j].by and ball.y <= brickMatrix[i][j].by+brickMatrix[i][j].brick.h) 
+              or (ball.y+ball.h >= brickMatrix[i][j].by and ball.y+ball.h <= brickMatrix[i][j].by+brickMatrix[i][j].brick.h))
+              and ball.x <= brickMatrix[i][j].bx + brickMatrix[i][j].brick.w+5 
+              and ball.x >= brickMatrix[i][j].bx + brickMatrix[i][j].brick.w 
+              and ball.dx < 0 then
             brickMatrix[i][j].hit = true
             --print('Got hit')
             ball.dx = -ball.dx
+            ball.x = brickMatrix[i][j].bx + brickMatrix[i][j].brick.w 
             PlayState.score = PlayState.score + 1
           end
           
-          if ball.y >= brickMatrix[i][j].by and ball.y <= brickMatrix[i][j].by+brickMatrix[i][j].brick.h and ball.x >= brickMatrix[i][j].bx-5 and ball.x <= brickMatrix[i][j].bx and ball.dx > 0 then
+          if ((ball.y >= brickMatrix[i][j].by and ball.y <= brickMatrix[i][j].by+brickMatrix[i][j].brick.h) 
+              or (ball.y+ball.h >= brickMatrix[i][j].by and ball.y+ball.h <= brickMatrix[i][j].by+brickMatrix[i][j].brick.h))
+              and ball.x >= brickMatrix[i][j].bx-5 
+              and ball.x <= brickMatrix[i][j].bx 
+              and ball.dx > 0 then
             brickMatrix[i][j].hit = true
             --print('Got hit again')
             ball.dx = -ball.dx
+            ball.x = brickMatrix[i][j].bx-5 
             PlayState.score = PlayState.score + 1
           end
         end

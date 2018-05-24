@@ -12,11 +12,17 @@ Ball.new = function()
   ball.dx = BALL_SPEED
   ball.update = function(dt)
     ball.x = ball.x + ball.dx*dt
-    if ball.x >= SCREEN_W-10 or ball.x <= 5 then
+    ball.y = ball.y + ball.dy*dt
+    if ball.x >= SCREEN_W-5 or ball.x <= 5 then
+      if ball.x >= SCREEN_W-5 then
+        ball.x = SCREEN_W-5
+      elseif ball.x <= 5 then
+        ball.x = 5
+      end
       ball.dx = -ball.dx
     end
-    ball.y = ball.y + ball.dy*dt
     if ball.y <= 0 then
+      ball.y = 1
       ball.dy = -ball.dy
     elseif ball.y >= SCREEN_H then
       PlayState.lives = PlayState.lives - 1
